@@ -1,0 +1,60 @@
+#include "stdafx.h"
+#include <iostream>
+#include <ctime>
+#include <time.h>
+using namespace std;
+
+void selection(int *num, int n)
+{
+	int i, j, mx, nmx;
+
+	for (i = 0; i < n - 1; i++)
+	{
+		mx = num[i];
+		nmx = i;
+		for (j = i + 1; j < n; j++)
+		{
+			if (num[j]<mx)
+			{
+				mx = num[j];
+				nmx = j;
+			}
+		}
+		num[nmx] = num[i];
+		num[i] = mx;
+	}
+}
+
+void generation(int *num, int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		num[i] = 0 + rand() % 11;
+	}
+
+}
+
+int main()
+{
+	time_t start, end;
+	setlocale(LC_ALL, "Russian");
+	int n, *num;
+	srand(time(NULL));
+	cout << "Введите количество элементов: ";
+	cin >> n;
+	num = new int[n];
+	generation(num, n);
+	time(&start);
+	selection(num, n);
+	time(&end);
+
+	for (int i = 0; i < 20; i++)
+		cout << num[i] << " ";
+	cout << endl;
+	double seconds = difftime(end, start);
+	printf("The time: %f seconds\n", seconds);
+
+	system("pause");
+    return 0;
+}
+
